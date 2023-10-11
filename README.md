@@ -37,3 +37,5 @@ The base template was extracted from muhammadmubeen17's template
 which can be seen here
 
 git clone https://github.com/muhammadmubeen17/simple-portfolio-website.git
+
+* For the security purposes the CMS only takes get requests. That is why I am not bothered by the openness of the endpoints. I will however add an authentication system for client side servers
