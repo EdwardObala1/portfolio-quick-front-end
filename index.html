@@ -137,7 +137,7 @@
 
         <!-- Experience Section -->
         <section id = 'my-experience' class = 'container-fluid section-experience'>
-            <div class="row" >
+            <div class="row" id = 'job-experience-section'>
                 <div class="col">
                     <div class="section-5-text text-center mx-auto">
                         Experience
@@ -146,37 +146,7 @@
                 </div>
 
 
-                <!-- divide for the experience section -->
-
-                <div class = 'row' id = 'job-experience-row'>
-                    <div class = "col-12 col-lg-4">
-                        <h2 id = 'job-title-text'>Software Engineer</h2>
-                        <p>2022 Sep - 2023 Sep</p>
-                        <p>Rwanda</p>
-                    </div>
-                    <div class = "col-12 col-lg-8" id = 'job-description'>
-                        <ui>
-                            <li>
-                                Developed my software engineering skills using Ruby and Ruby on Rails emphasising 
-                                good software engineering practices such as constant use of test-driven development 
-                                to develop new features and applications, using multiple software engineering concepts 
-                                such as BDD, DRY and various other methods to future-proof the code and ensuring its useability.
-                            </li>
-                            <li>
-                                Developed my software engineering skills using Ruby and Ruby on Rails emphasising 
-                                good software engineering practices such as constant use of test-driven development 
-                                to develop new features and applications, using multiple software engineering concepts 
-                                such as BDD, DRY and various other methods to future-proof the code and ensuring its useability.
-                            </li>
-                            <li>
-                                Developed my software engineering skills using Ruby and Ruby on Rails emphasising 
-                                good software engineering practices such as constant use of test-driven development 
-                                to develop new features and applications, using multiple software engineering concepts 
-                                such as BDD, DRY and various other methods to future-proof the code and ensuring its useability.
-                            </li>
-                        </ui>
-                    </div>
-                </div>
+                <!-- Javascript will fill out the job-experience-row section -->
             </div>
         </section>
 
@@ -498,6 +468,64 @@
             </div>
         </footer>
     </main>
+
+    <script>
+        function apiRequest() {
+            fetchAPI('http://localhost:8000/api/homepage')
+            .then(data => {
+                // Use the fetched data
+                // get all items via their id
+                const jobExperiencesection = document.getElementById("job-experience-section");
+                // loop through results and print those out in the html
+                console.log(data.experiences)
+
+                data.experiences.forEach(experience => {
+                    console.log(experience);
+
+                    const jobExperienceRow = document.createElement("div");
+                    jobExperienceRow.id = "job-experience-row";
+                    jobExperienceRow.className = "row";
+
+                    const startDate = new Date(experience.startDate);
+                    const endDate = new Date(experience.endDate);
+
+                    // Format the date
+                    const options = { year: 'numeric', month: 'short' };
+                    const formattedStartDate = startDate.toLocaleDateString(undefined, options);
+                    const formattedEndDate = endDate.toLocaleDateString(undefined, options);
+
+                    var remote = ''
+                    if (experience.remote){
+                        remote = 'Remote'
+                    }else{
+                        remote = 'On-Site'
+                    }
+                    jobExperienceRow.innerHTML = `
+                        <div class="col-12 col-lg-4"">
+                            <h2 id = 'job-title-text' >${experience.title}</h2>
+                            <p>${formattedStartDate} - ${formattedEndDate}</p>
+                            <p>${experience.location}</p>
+                            <p>${remote}</p>
+                        </div>
+                        <div class="col-12 col-lg-8" id = 'job-description'">
+                            ${experience.description}
+                        </div>
+                    `;
+
+                    // append to main container holding the data
+                    jobExperiencesection.appendChild(jobExperienceRow);
+
+                });
+
+            })
+            .catch(error => {
+                // Handle errors
+                console.error(error);
+            });
+        }
+
+        window.onload = apiRequest;
+    </script>
 </body>
 
 </html>
