@@ -38,8 +38,3 @@ function fetchAPI(endpoint) {
     xhr.send();
   });
 }
-
-function cache_results(endpoint){
-    var results = fetchAPI(endpoint);
-    return results
-}

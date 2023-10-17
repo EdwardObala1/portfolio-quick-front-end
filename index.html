@@ -34,6 +34,7 @@
 
     <!-- fetch api js file -->
     <script src="./js/fetchAPI.js"></script>
+    <script src="./js/homePage.js"></script>
 </head>
 
 <body>
@@ -231,22 +232,16 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="section-4-left text-center text-lg-end pe-0 pe-lg-5">
-                        <span class="section-4-heading text__light">We</span>
-                        <span class="section-4-heading text__light">Build</span>
-                        <span class="section-4-heading-bold fw-bolder">Digital</span>
+                        <span class="section-4-heading text__light">I</span>
+                        <span class="section-4-heading text__light">Write</span>
+                        <span class="section-4-heading-bold fw-bolder">Blogs</span>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="section-4-right text-center text-lg-start">
                         <div class="sec4-blank"></div>
-                        <div class="sec4-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus est dolor iure voluptates.
-                            Facere nostrum porro, velit veniam, architecto veritatis, libero a repellat quod quas atque
-                            totam accusamus obcaecati delectus dicta! Suscipit ratione qui, nihil voluptates error
-                            distinctio optio doloremque?
-                        </div>
                         <div class="section-4-button">
-                            <button class="sec4-btn text-uppercase fw-bold" onclick="location.href='#'">Read
+                            <button class="sec4-btn text-uppercase fw-bold" onclick="location.href='/pages/blogs.html'">Read
                                 More</button>
                         </div>
                     </div>
@@ -260,70 +255,14 @@
 
         <!-- SECTION NO 6 -->
         <section class="container-fluid section-6">
-            <div class="row section-6-inner mx-auto">
-                <div class="col-lg-6 sec-6-left  pe-0 pe-lg-4">
-                    <div class="section-6-heading">
-                        <span class="fw-bold">Music Band</span> Website
-                    </div>
-                    <div class="section-6-para">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique iste nesciunt repellendus!
-                        Nulla, quod voluptatum consequuntur ipsa minus perferendis, incidunt repellendus est dolores
-                        animi tempora adipisci. Perferendis, doloremque ab autem amet possimus commodi voluptate?
-                        Aspernatur.
-                    </div>
-                    <div class="section-6-button">
-                        <a class="sec6-btn text-uppercase fw-bold" onclick="location.href='#'">View Project</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 sec-6-right mt-lg-0 mt-5">
-                    <a href="#"><img src="./images/music-band-website.png" class="img-fluid sec6-image" alt=""></a>
-                </div>
-            </div>
-
-            <div class="row section-6-inner mx-auto mt-5">
-                <div class="col-lg-6 sec-6-left  pe-0 pe-lg-4">
-                    <div class="section-6-heading">
-                        <span class="fw-bold">Coffee Cup</span> Website
-                    </div>
-                    <div class="section-6-para">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse, saepe adipisci distinctio
-                        repellendus aliquam pariatur. Reiciendis quam nisi fugiat molestias asperiores. Eius, veritatis?
-                        Corrupti nesciunt aperiam voluptates placeat, libero itaque?
-                    </div>
-                    <div class="section-6-button">
-                        <a class="sec6-btn text-uppercase fw-bold" onclick="location.href='#'">View Project</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 sec-6-right mt-lg-0 mt-5">
-                    <a href="#"><img src="./images/coffee-cup-website.png" class="img-fluid sec6-image" alt=""></a>
-                </div>
-            </div>
-
-            <div class="row section-6-inner mx-auto mt-5">
-                <div class="col-lg-6 sec-6-left  pe-0 pe-lg-4">
-                    <div class="section-6-heading">
-                        <span class="fw-bold">Food Diary</span> Website
-                    </div>
-                    <div class="section-6-para">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ratione sint mollitia dicta
-                        libero illum veniam ut cupiditate quia. Delectus est eveniet quibusdam reiciendis molestias ad
-                        vitae pariatur quis iste, dolores accusamus animi ullam error nesciunt corporis? Sint nisi
-                        soluta ut tempore dignissimos hic voluptatibus autem. Beatae neque iusto impedit dolorem ipsum
-                        rem facere vitae!
-                    </div>
-                    <div class="section-6-button">
-                        <a class="sec6-btn text-uppercase fw-bold" onclick="location.href='#'">View Project</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 sec-6-right mt-lg-0 mt-5">
-                    <a href="#"><img src="./images/food-dairy-website.png" class="img-fluid sec6-image" alt=""></a>
-                </div>
+            <div id="blogs-preview">
+                <!-- adding blog previews here -->
             </div>
 
             <div class="row mt-5">
                 <div class="section-6-button-see-all text-center">
                     <button class="sec6-btn-see-all text-uppercase fw-bold" onclick="location.href='#'">See All
-                        Projects</button>
+                        Blogs</button>
                 </div>
             </div>
         </section>
@@ -470,61 +409,8 @@
     </main>
 
     <script>
-        function apiRequest() {
-            fetchAPI('http://localhost:8000/api/homepage')
-            .then(data => {
-                // Use the fetched data
-                // get all items via their id
-                const jobExperiencesection = document.getElementById("job-experience-section");
-                // loop through results and print those out in the html
-                console.log(data.experiences)
-
-                data.experiences.forEach(experience => {
-                    console.log(experience);
-
-                    const jobExperienceRow = document.createElement("div");
-                    jobExperienceRow.id = "job-experience-row";
-                    jobExperienceRow.className = "row";
-
-                    const startDate = new Date(experience.startDate);
-                    const endDate = new Date(experience.endDate);
-
-                    // Format the date
-                    const options = { year: 'numeric', month: 'short' };
-                    const formattedStartDate = startDate.toLocaleDateString(undefined, options);
-                    const formattedEndDate = endDate.toLocaleDateString(undefined, options);
-
-                    var remote = ''
-                    if (experience.remote){
-                        remote = 'Remote'
-                    }else{
-                        remote = 'On-Site'
-                    }
-                    jobExperienceRow.innerHTML = `
-                        <div class="col-12 col-lg-4"">
-                            <h2 id = 'job-title-text' >${experience.title}</h2>
-                            <p>${formattedStartDate} - ${formattedEndDate}</p>
-                            <p>${experience.location}</p>
-                            <p>${remote}</p>
-                        </div>
-                        <div class="col-12 col-lg-8" id = 'job-description'">
-                            ${experience.description}
-                        </div>
-                    `;
-
-                    // append to main container holding the data
-                    jobExperiencesection.appendChild(jobExperienceRow);
-
-                });
-
-            })
-            .catch(error => {
-                // Handle errors
-                console.error(error);
-            });
-        }
-
-        window.onload = apiRequest;
+        //HomePage
+        window.onload = homePage;
     </script>
 </body>
 
